@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { pulse } from '../content';
 import { ELEMENTS, CATEGORY_COLORS } from './elements';
+import { effectFor, playEffect } from './elementEffects';
+
+const reducedMotion =
+  typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 const TILE = 86; // minimum tile width / row height in px
 const GAP = 8;
@@ -32,16 +36,40 @@ export default function PulseWall() {
     const [num, sym, cat] = ELEMENTS[i % ELEMENTS.length];
     const color = pulse.tileColors === 'accent' ? pulse.accent : CATEGORY_COLORS[cat];
     const delay = (((i * 37) % 53) / 53) * pulse.seconds;
+    const fx = effectFor(sym, cat, CATEGORY_COLORS[cat]);
     tiles.push(
-      <div key={i} className="tile" style={{ '--c': color, animationDelay: `${delay.toFixed(2)}s` }}>
-        <span className="tile-n">{num}</span>
-        <span className="tile-s">{sym}</span>
+      // .tile wobbles on hover; .tile-face carries the slow colour pulse.
+      // Negative delay: every face starts mid-cycle, so the wall is already pulsing on load.
+      <div key={i} className="tile" style={{ '--c': color }} data-fx={fx.type} data-fx-color={fx.color}>
+        <div className="tile-face" style={{ animationDelay: `-${delay.toFixed(2)}s` }}>
+          <span className="tile-n">{num}</span>
+          <span className="tile-s">{sym}</span>
+        </div>
       </div>,
     );
   }
 
+  // One delegated listener for the whole wall: hovering a tile starts a full
+  // wobble, which finishes even if the pointer leaves straight away.
+  const onPointerOver = (e) => {
+    const tile = e.target.closest?.('.tile');
+    if (!tile) return;
+    if (!tile.classList.contains('wobble')) tile.classList.add('wobble');
+    if (!reducedMotion) playEffect(tile);
+  };
+  const onAnimationEnd = (e) => {
+    if (e.animationName === 'wobble') e.target.classList.remove('wobble');
+  };
+
   return (
-    <div ref={ref} className="pulse-wall" aria-hidden="true" style={{ '--dur': `${pulse.seconds}s` }}>
+    <div
+      ref={ref}
+      className="pulse-wall"
+      aria-hidden="true"
+      style={{ '--dur': `${pulse.seconds}s` }}
+      onPointerOver={onPointerOver}
+      onAnimationEnd={onAnimationEnd}
+    >
       {tiles}
     </div>
   );
