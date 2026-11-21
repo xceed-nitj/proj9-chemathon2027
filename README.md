@@ -39,17 +39,13 @@ it: it uses `https://xceed.nitj.ac.in` when that server is up, and
 `https://nitjtt.onrender.com` otherwise.
 
 The conference id is `6b0117a59570b0e3d8a5cd04`, set in `src/api/conference.js`
-(override it with `VITE_CONF_ID` in a `.env` file). These admin-panel features
-are live, and each falls back to `src/content.js` if the API returns nothing:
+(override it with `VITE_CONF_ID` in a `.env` file). Only two parts of the site
+come from the admin panel; each falls back to `src/content.js` if the API
+returns nothing or cannot be reached:
 
 | Feature | Endpoint (`/conferencemodule/...`) | Where it shows |
 | --- | --- | --- |
-| Maintenance mode | `maintenance/public/:confId` | replaces the whole site |
-| Navbar | `navitem/public/:confId` (`navbarMode: "dynamic"`) | header menu |
+| Navbar | `navitem/public/:confId` (used when `navbarMode` is `"dynamic"`) | header menu |
 | Important dates | `eventDates/conference/:confId` | Important dates section |
-| Announcements | `announcements/conf/:confId` | "Latest updates" section (hidden when empty) |
-| News pages | `announcements/:newsId` | `/news/:newsId` |
-| Custom pages | `commontemplate/:confId/:templateId` | `/:templateId` |
 
-Unlike MAC2027, if the maintenance endpoint cannot be reached the site stays
-up (`FALLBACK_ENABLED = false` in `src/hooks/useMaintenance.js`).
+Everything else is static content from `src/content.js`.

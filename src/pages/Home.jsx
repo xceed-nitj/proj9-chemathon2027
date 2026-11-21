@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Section, { ElementBadge } from '../components/Section';
 import { CATEGORY_COLORS } from '../components/elements';
 import useConfData from '../hooks/useConfData';
@@ -18,7 +18,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Updates />
       <About />
       <HowItWorks />
       <Problems />
@@ -67,35 +66,6 @@ function Hero() {
         </dl>
       </div>
     </section>
-  );
-}
-
-// Announcements from the AMS admin panel. Hidden until there are some.
-function Updates() {
-  const { data } = useConfData((id) => `announcements/conf/${id}`);
-  const items = Array.isArray(data)
-    ? data.filter((n) => !n.hidden).sort((a, b) => (a.sequence ?? 0) - (b.sequence ?? 0))
-    : [];
-  if (!items.length) return null;
-  return (
-    <Section id="updates" num="00" sym="Nw" cat="c" title="Latest updates">
-      <div className="grid grid-3">
-        {items.map((n) => {
-          const href = n.link ? n.link : `/news/${n._id}`;
-          return (
-            <article key={n._id} className="card">
-              <h3>{n.title}</h3>
-              {n.metaDescription && <p className="muted">{n.metaDescription}</p>}
-              {href.startsWith('http') ? (
-                <a href={href} target="_blank" rel="noopener noreferrer">Read more →</a>
-              ) : (
-                <Link to={href}>Read more →</Link>
-              )}
-            </article>
-          );
-        })}
-      </div>
-    </Section>
   );
 }
 

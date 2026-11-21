@@ -185,21 +185,6 @@ img { max-width: 100%; }
 }
 .site-footer a { color: var(--line-strong); padding: 12px 0; }
 
-/* ---------- admin-authored pages ---------- */
-.page-body { min-height: 60vh; }
-.back { text-decoration: none; }
-.page-title { font-size: clamp(32px, 4vw, 48px); letter-spacing: -.02em; }
-.prose { font-size: 17px; line-height: 1.7; color: var(--muted); }
-.prose h1, .prose h2, .prose h3 { color: var(--ink); margin: 1.2em 0 .5em; }
-.prose p { margin: 0 0 1em; }
-.prose a { color: var(--ink); }
-.prose table { border-collapse: collapse; width: 100%; background: #fff; }
-.prose th, .prose td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
-
-/* ---------- maintenance ---------- */
-.maintenance { display: flex; align-items: center; justify-content: center; padding: 40px 0; }
-.maintenance-card { max-width: 620px; }
-
 @media (max-width: 640px) {
   .hero { min-height: 0; padding: 24px 0 40px; }
   .hero-card { padding: 28px; }
