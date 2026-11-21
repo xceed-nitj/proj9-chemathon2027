@@ -1,0 +1,61 @@
+# IIChE-ChEMATHON 2027
+
+Website for IIChE-ChEMATHON 2027, the third edition of the IIChE Hackathon
+(Grand Finale 18–20 February 2027, Dr. B. R. Ambedkar NIT Jalandhar).
+
+Built with React + Vite. The page sits on an animated periodic-table background
+whose tiles slowly light up in their element-category colours.
+
+## Run it
+
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # production build in dist/
+```
+
+`public/_redirects` sends every path to `index.html`, so hosting on Netlify (or
+anything that honours `_redirects`) works with client-side routes.
+
+## Editing content
+
+All event details (theme, problem statements, prizes, dates, fees, committee,
+FAQ, contact) are in **`src/content.js`**. Change them there; the layout code
+does not need to be touched.
+
+Things still to fill in, marked `TODO` in `src/content.js`:
+
+- `site.submissionUrl` — the idea submission form link
+- the team size / eligibility FAQ answer
+
+The pulse background is configured in `pulse` in the same file: accent colour,
+speed (`seconds`, larger is slower) and `tileColors` (`'periodic'` or `'accent'`).
+
+## AMS backend (conference module)
+
+The site talks to the AMS conference module the same way the MAC2027 site
+(`xceed-nitj/Proj8-Ece-MAC2027`) does. `src/api/getenvironment.js` is copied from
+it: it uses `https://xceed.nitj.ac.in` when that server is up, and
+`https://nitjtt.onrender.com` otherwise.
+
+Set the conference id once ChEMATHON 2027 exists in the AMS admin panel:
+
+```bash
+cp .env.example .env   # then set VITE_CONF_ID=<conference id>
+```
+
+With no id the site makes no API calls and shows only `src/content.js`.
+With an id, these admin-panel features are live, and each falls back to
+`src/content.js` if the API returns nothing:
+
+| Feature | Endpoint (`/conferencemodule/...`) | Where it shows |
+| --- | --- | --- |
+| Maintenance mode | `maintenance/public/:confId` | replaces the whole site |
+| Navbar | `navitem/public/:confId` (`navbarMode: "dynamic"`) | header menu |
+| Important dates | `eventDates/conference/:confId` | Important dates section |
+| Announcements | `announcements/conf/:confId` | "Latest updates" section (hidden when empty) |
+| News pages | `announcements/:newsId` | `/news/:newsId` |
+| Custom pages | `commontemplate/:confId/:templateId` | `/:templateId` |
+
+Unlike MAC2027, if the maintenance endpoint cannot be reached the site stays
+up (`FALLBACK_ENABLED = false` in `src/hooks/useMaintenance.js`).
