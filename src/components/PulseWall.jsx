@@ -33,15 +33,36 @@ export default function PulseWall() {
     const color = pulse.tileColors === 'accent' ? pulse.accent : CATEGORY_COLORS[cat];
     const delay = (((i * 37) % 53) / 53) * pulse.seconds;
     tiles.push(
-      <div key={i} className="tile" style={{ '--c': color, animationDelay: `${delay.toFixed(2)}s` }}>
-        <span className="tile-n">{num}</span>
-        <span className="tile-s">{sym}</span>
+      // .tile wobbles on hover; .tile-face carries the slow colour pulse.
+      // Negative delay: every face starts mid-cycle, so the wall is already pulsing on load.
+      <div key={i} className="tile" style={{ '--c': color }}>
+        <div className="tile-face" style={{ animationDelay: `-${delay.toFixed(2)}s` }}>
+          <span className="tile-n">{num}</span>
+          <span className="tile-s">{sym}</span>
+        </div>
       </div>,
     );
   }
 
+  // One delegated listener for the whole wall: hovering a tile starts a full
+  // wobble, which finishes even if the pointer leaves straight away.
+  const onPointerOver = (e) => {
+    const tile = e.target.closest?.('.tile');
+    if (tile && !tile.classList.contains('wobble')) tile.classList.add('wobble');
+  };
+  const onAnimationEnd = (e) => {
+    if (e.animationName === 'wobble') e.target.classList.remove('wobble');
+  };
+
   return (
-    <div ref={ref} className="pulse-wall" aria-hidden="true" style={{ '--dur': `${pulse.seconds}s` }}>
+    <div
+      ref={ref}
+      className="pulse-wall"
+      aria-hidden="true"
+      style={{ '--dur': `${pulse.seconds}s` }}
+      onPointerOver={onPointerOver}
+      onAnimationEnd={onAnimationEnd}
+    >
       {tiles}
     </div>
   );
