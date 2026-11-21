@@ -216,7 +216,7 @@ img { max-width: 100%; }
 /* ---------- header ---------- */
 .site-header {
   position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
-  max-width: 1240px; width: calc(100% - 40px); margin: 24px auto 0; padding: 12px 20px;
+  max-width: 1240px; width: calc(100% - 40px); margin: clamp(12px, 2.5vh, 24px) auto 0; padding: 12px 20px;
   background: var(--ground); border: 1px solid var(--line); border-radius: 16px;
 }
 .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 700; font-size: 19px; min-height: 44px; }
@@ -247,12 +247,13 @@ img { max-width: 100%; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* ---------- hero ---------- */
-.hero { position: relative; z-index: 2; min-height: 700px; display: flex; align-items: center; max-width: 1240px; margin: 0 auto; padding: 40px 0 72px; }
+/* sized to the screen so the hero card fits on short laptop screens too */
+.hero { position: relative; z-index: 2; min-height: min(700px, calc(100vh - 100px)); display: flex; align-items: center; max-width: 1240px; margin: 0 auto; padding: clamp(16px, 3vh, 40px) 0 clamp(24px, 5vh, 72px); }
 .hero-card {
-  position: relative; z-index: 2; max-width: 660px; margin: 0 20px; display: flex; flex-direction: column; gap: 24px;
-  background: var(--ground); border: 1px solid var(--line); border-radius: 24px; padding: 44px;
+  position: relative; z-index: 2; max-width: 660px; margin: 0 20px; display: flex; flex-direction: column; gap: clamp(14px, 2.4vh, 24px);
+  background: var(--ground); border: 1px solid var(--line); border-radius: 24px; padding: clamp(24px, 4.5vh, 44px) clamp(24px, 3vw, 44px);
 }
-.hero-card h1 { font-weight: 700; font-size: clamp(44px, 6vw, 80px); line-height: 1; letter-spacing: -.03em; }
+.hero-card h1 { font-weight: 700; font-size: clamp(40px, min(5vw, 8vh), 76px); line-height: 1; letter-spacing: -.03em; }
 .hero-kicker { display: flex; align-items: center; gap: 16px; }
 .hero-kicker p { font-size: 14px; line-height: 1.5; }
 .hero-tile {
@@ -261,7 +262,7 @@ img { max-width: 100%; }
 }
 .hero-tile strong { font-size: 34px; font-weight: 600; line-height: 1; }
 .hero-tile-name { font-size: 10px; }
-.lead { font-size: 18px; line-height: 1.6; color: var(--muted); }
+.lead { font-size: clamp(16px, 1.25vw, 18px); line-height: 1.6; color: var(--muted); }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding-top: 22px; border-top: 1px solid var(--line); font-family: var(--mono); }
 .facts dt { font-size: 12px; color: #5a6478; text-transform: uppercase; margin-bottom: 4px; }
 .facts dd { margin: 0; font-size: 15px; font-weight: 500; }
@@ -269,12 +270,12 @@ img { max-width: 100%; }
 /* ---------- section panels ---------- */
 .section { position: relative; z-index: 2; max-width: 1240px; margin: 0 auto; padding: 24px 20px; }
 .panel {
-  background: var(--ground); border: 1px solid var(--line); border-radius: 28px; padding: clamp(28px, 4vw, 56px);
+  background: var(--ground); border: 1px solid var(--line); border-radius: 28px; padding: clamp(24px, 3.4vw, 52px);
   display: flex; flex-direction: column; gap: 32px;
 }
 .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
 .panel-title { display: flex; align-items: center; gap: 16px; }
-.panel-title h2 { font-size: 40px; letter-spacing: -.02em; }
+.panel-title h2 { font-size: clamp(28px, 2.5vw, 38px); letter-spacing: -.02em; }
 .aside-strong { font-size: 20px; }
 .badge {
   flex: none; border-radius: 10px; border: 1px solid rgba(13, 19, 33, .2); padding: 5px 7px;
@@ -305,7 +306,7 @@ img { max-width: 100%; }
 .split-fees { gap: 20px; }
 .stack { display: flex; flex-direction: column; gap: 18px; }
 .stack-sm { gap: 12px; }
-.statement { font-size: 30px; line-height: 1.3; font-weight: 500; letter-spacing: -.01em; }
+.statement { font-size: clamp(22px, 2vw, 28px); line-height: 1.3; font-weight: 500; letter-spacing: -.01em; }
 .body { font-size: 17px; line-height: 1.7; }
 .big { font-size: 18px; }
 
@@ -322,7 +323,7 @@ img { max-width: 100%; }
 .problems li .mono { flex: none; padding-top: 2px; }
 
 .prize { padding: 28px; }
-.prize-amount { font-size: 38px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.prize-amount { font-size: clamp(28px, 2.6vw, 38px); font-weight: 700; letter-spacing: -.02em; line-height: 1; }
 .date { font-family: var(--mono); font-size: 20px; font-weight: 600; }
 
 .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
