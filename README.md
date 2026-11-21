@@ -38,15 +38,9 @@ The site talks to the AMS conference module the same way the MAC2027 site
 it: it uses `https://xceed.nitj.ac.in` when that server is up, and
 `https://nitjtt.onrender.com` otherwise.
 
-Set the conference id once ChEMATHON 2027 exists in the AMS admin panel:
-
-```bash
-cp .env.example .env   # then set VITE_CONF_ID=<conference id>
-```
-
-With no id the site makes no API calls and shows only `src/content.js`.
-With an id, these admin-panel features are live, and each falls back to
-`src/content.js` if the API returns nothing:
+The conference id is `6b0117a59570b0e3d8a5cd04`, set in `src/api/conference.js`
+(override it with `VITE_CONF_ID` in a `.env` file). These admin-panel features
+are live, and each falls back to `src/content.js` if the API returns nothing:
 
 | Feature | Endpoint (`/conferencemodule/...`) | Where it shows |
 | --- | --- | --- |
