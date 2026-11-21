@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { pulse, site, nav as staticNav, contact } from '../content';
 import useConfData from '../hooks/useConfData';
 import { mapNavItem, resolveHref } from '../api/conference';
@@ -16,7 +16,8 @@ export default function Layout({ children }) {
   );
 }
 
-function NavLink({ item, className }) {
+function NavLink({ item, className = '' }) {
+  const { pathname } = useLocation();
   const href = item.href || '#';
   if (item.isExternal || href.startsWith('http')) {
     return (
@@ -33,8 +34,9 @@ function NavLink({ item, className }) {
       </Link>
     );
   }
+  const active = href !== '/' && pathname === href;
   return (
-    <Link className={className} to={href}>
+    <Link className={`${className} ${active ? 'active' : ''}`.trim()} to={href} aria-current={active ? 'page' : undefined}>
       {item.label}
     </Link>
   );

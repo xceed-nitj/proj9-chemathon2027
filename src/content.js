@@ -30,6 +30,7 @@ export const nav = [
   { label: 'Fees', href: '#fees' },
   { label: 'Committee', href: '#committee' },
   { label: 'Contact', href: '#contact' },
+  { label: 'Location', href: '/location' },
 ];
 
 export const organizers = {

@@ -39,13 +39,15 @@ it: it uses `https://xceed.nitj.ac.in` when that server is up, and
 `https://nitjtt.onrender.com` otherwise.
 
 The conference id is `6b0117a59570b0e3d8a5cd04`, set in `src/api/conference.js`
-(override it with `VITE_CONF_ID` in a `.env` file). Only two parts of the site
-come from the admin panel; each falls back to `src/content.js` if the API
+(override it with `VITE_CONF_ID` in a `.env` file). These parts of the site come
+from the admin panel; each falls back to `src/content.js` if the API
 returns nothing or cannot be reached:
 
 | Feature | Endpoint (`/conferencemodule/...`) | Where it shows |
 | --- | --- | --- |
 | Navbar | `navitem/public/:confId` (used when `navbarMode` is `"dynamic"`) | header menu |
 | Important dates | `eventDates/conference/:confId` | Important dates section |
+| How to reach | `location/:confId` | `/location` page |
+| Nearby attractions | `images/conference/:confId` | `/location` page (hidden when empty) |
 
 Everything else is static content from `src/content.js`.
