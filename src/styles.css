@@ -228,7 +228,7 @@ img { max-width: 100%; }
 .brand-tile-sm { width: 32px; height: 32px; font-size: 14px; border-radius: 6px; }
 .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; font-size: 15px; font-weight: 500; }
 .site-nav > a, .nav-menu summary { text-decoration: none; padding: 12px 0; color: var(--muted); cursor: pointer; }
-.site-nav > a.btn-sm { padding: 11px 18px; color: #fff; }
+.site-nav > a.btn-sm { padding: 13px 26px; color: #fff; }
 .nav-menu { position: relative; }
 .nav-menu summary { list-style: none; }
 .nav-menu-list {
@@ -240,7 +240,7 @@ img { max-width: 100%; }
 
 /* ---------- buttons ---------- */
 .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 12px; font-weight: 600; font-size: 16px; text-decoration: none; }
-.btn-sm { min-height: 0; padding: 11px 18px; font-size: 15px; border-radius: 10px; }
+.btn-sm { min-height: 0; padding: 13px 26px; font-size: 15px; border-radius: 10px; }
 .btn-dark { background: var(--ink); color: #fff !important; }
 .btn-dark:hover { background: #26304a; }
 .btn-light { background: #fff; color: var(--ink); border: 1px solid var(--line-strong); font-weight: 500; }
